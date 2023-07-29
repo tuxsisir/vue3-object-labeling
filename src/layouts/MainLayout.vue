@@ -14,7 +14,6 @@
         <q-toolbar-title>
           CropVue Technologies
         </q-toolbar-title>
-
       </q-toolbar>
     </q-header>
 
@@ -24,9 +23,7 @@
       bordered
     >
       <q-list>
-        <q-item-label
-          header
-        >
+        <q-item-label header>
           Essential Links
         </q-item-label>
 
@@ -37,7 +34,6 @@
         />
       </q-list>
     </q-drawer>
-
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -57,20 +53,20 @@ const linksList = [
   },
   {
     title: 'Reference Article #1',
-    caption: 'quasar.dev',
+    caption: 'Reference',
     icon: 'school',
     link: 'https://levelup.gitconnected.com/object-labelling-tool-on-vue-js-part-1-drawing-boxes-3e0b961aa680'
   },
 
   {
     title: 'Reference Article #2',
-    caption: 'chat.quasar.dev',
+    caption: 'Reference',
     icon: 'chat',
     link: 'https://levelup.gitconnected.com/object-labelling-tool-on-vue-js-part-2-selecting-and-removing-boxes-8d7e820bdd4b'
   },
   {
     title: 'Reference Article #3',
-    caption: 'forum.quasar.dev',
+    caption: 'Reference',
     icon: 'record_voice_over',
     link: 'https://levelup.gitconnected.com/object-labelling-tool-on-vue-js-part-3-labelling-f15d4c482143'
   },
@@ -83,13 +79,13 @@ export default defineComponent({
     EssentialLink
   },
 
-  setup () {
+  setup() {
     const leftDrawerOpen = ref(false)
 
     return {
       essentialLinks: linksList,
       leftDrawerOpen,
-      toggleLeftDrawer () {
+      toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value
       }
     }
