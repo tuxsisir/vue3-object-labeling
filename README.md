@@ -1,6 +1,18 @@
-# CropVue (cropvue)
+# CropVue Technologies (Object Labeling)
 
-CropVue Tech
+### Draw and Remove Boxes
+![Draw and Remove](docs/draw.gif)
+
+
+### Q-list and Labels on the Boxes
+![Draw and Remove](docs/labels.gif)
+
+### Resize Boxes
+![Draw and Remove](docs/resize.gif)
+
+
+### Responsiveness
+![Draw and Remove](docs/responsive.gif)
 
 ## Install the dependencies
 ```bash
