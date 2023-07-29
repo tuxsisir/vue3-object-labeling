@@ -7,7 +7,7 @@
       @mousemove="changeBox"
       @mouseup="stopDrawingBox"
     >
-      <img src="../assets/caterpillar.jpg">
+      <q-img src="../assets/caterpillar.jpg" />
       <RectangularBox
         v-if="drawingBox.active"
         :b-width="drawingBox.width"
