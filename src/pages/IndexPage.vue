@@ -118,9 +118,7 @@ function startDrawingBox(e) {
   e.preventDefault()
   // determine if resizing by activeBox value
   const activeBox = boxes.value[activeBoxIndex.value]
-  console.log(activeBox);
   if (resize.value) {
-    console.log('resize?')
     const activeBox = boxes.value[activeBoxIndex.value]
     drawingBox.width = activeBox.width
     drawingBox.height = activeBox.height
@@ -128,7 +126,6 @@ function startDrawingBox(e) {
     drawingBox.left = activeBox.left
     drawingBox.active = true
   } else {
-    console.log('not resize?')
     const offsetLeft = wrapper.value.offsetLeft;
     const offsetTop = wrapper.value.offsetTop;
     drawingBox.width = 0
