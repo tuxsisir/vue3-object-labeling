@@ -28,7 +28,7 @@
         v-if="bActive"
         class="box-delete"
         @mousedown="removeMyself"
-        @touchstart="removeMyself"
+        @touchstart.stop="removeMyself"
       >
         <q-icon name="cancel" />
       </a>
