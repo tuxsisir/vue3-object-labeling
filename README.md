@@ -1,18 +1,23 @@
 # CropVue Technologies (Object Labeling)
 
+### Enhancements
+- Drag Box, Resize Corners, Overlapping Boxes, Mobile Touch Support, Limit Overflow
+
+![Enhancements](docs/enhancements.gif)
+
 ### Draw and Remove Boxes
-![Draw and Remove](docs/draw.gif)
+![Draw and remove boxes](docs/draw.gif)
 
 
 ### Q-list and Labels on the Boxes
-![Draw and Remove](docs/labels.gif)
+![q-list](docs/labels.gif)
 
 ### Resize Boxes
-![Draw and Remove](docs/resize.gif)
+![Resize](docs/resize.gif)
 
 
 ### Responsiveness
-![Draw and Remove](docs/responsive.gif)
+![Responsiveness](docs/responsive.gif)
 
 ## Install the dependencies
 ```bash

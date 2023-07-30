@@ -47,9 +47,9 @@ import EssentialLink from 'components/EssentialLink.vue'
 const linksList = [
   {
     title: 'This Project Repo Link',
-    caption: 'github.com/quasarframework',
+    caption: 'https://github.com/tuxsisir/vue3-object-labeling',
     icon: 'code',
-    link: 'https://github.com/quasarframework'
+    link: 'https://github.com/tuxsisir/vue3-object-labeling'
   },
   {
     title: 'Reference Article #1',
