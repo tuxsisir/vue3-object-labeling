@@ -3,24 +3,61 @@
     <div
       class="box"
       :style="{ top: bTop + '%', left: bLeft + '%', width: bWidth + '%', height: bHeight + '%' }"
-      :class="{ 'active': bActive }"
+      :class="{ 'active': bActive, 'dragActive': bDrag }"
       @mousedown="$emit('onSelect', bIndex)"
+      @touchstart="$emit('onSelect', bIndex)"
     >
+      <div
+        class="flex flex-center item-center"
+        style="border: 1px solid black; height: 100%"
+      >
+        <a
+          v-if="bActive"
+          @mousedown="enableDrag"
+          @touchstart="enableDrag"
+        >
+          <q-icon
+            name="add"
+            class="text-danger text-weight-bold cursor-grab"
+          />
+        </a>
+      </div>
+
       <!-- REMOVE BUTTON -->
       <a
         v-if="bActive"
         class="box-delete"
-        @click="removeMyself"
+        @mousedown="removeMyself"
+        @touchstart="removeMyself"
       >
         <q-icon name="cancel" />
       </a>
       <!-- / - REMOVE BUTTON -->
 
-      <!-- RESIZE -->
+      <!-- RESIZE - BOTTOM - LEFT -->
       <a
         v-if="bActive"
-        class="box-resize"
-        @click="resizeClick"
+        class="box-resize resize-bottom-left"
+        @mousedown="resizeClick('bottom-left')"
+        @touchstart="resizeClick('bottom-left')"
+      >
+        <q-icon name="open_in_full" />
+      </a>
+      <!-- RESIZE - TOP LEFT -->
+      <a
+        v-if="bActive"
+        class="box-resize resize-top-left"
+        @mousedown="resizeClick('top-left')"
+        @touchstart="resizeClick('top-left')"
+      >
+        <q-icon name="open_in_full" />
+      </a>
+      <!-- RESIZE - BOTTOM - RIGHT -->
+      <a
+        v-if="bActive"
+        class="box-resize resize-bottom-right"
+        @mousedown="resizeClick('bottom-right')"
+        @touchstart="resizeClick('bottom-right')"
       >
         <q-icon name="open_in_full" />
       </a>
@@ -51,7 +88,7 @@
 </template>
 
 <script setup>
-const emit = defineEmits(['onSelect', 'onDelete', 'changeBox', 'updateResize'])
+const emit = defineEmits(['onSelect', 'onDelete', 'onDrag', 'onResize'])
 const props = defineProps({
   bTop: {
     type: Number,
@@ -67,6 +104,14 @@ const props = defineProps({
   },
   bHeight: {
     type: Number,
+    required: true
+  },
+  bDrag: {
+    type: Boolean,
+    required: true
+  },
+  bResize: {
+    type: Boolean,
     required: true
   },
   bActive: {
@@ -95,12 +140,15 @@ const props = defineProps({
 function removeMyself() {
   emit('onDelete', props.bIndex)
 }
-// function onMouseMove(event) {
-//   emit('changeBox', event)
-// }
-function resizeClick() {
-  emit('updateResize', true)
+
+function resizeClick(resizeOf) {
+  emit('onResize', resizeOf)
 }
+
+function enableDrag() {
+  emit('onDrag')
+}
+
 </script>
 
 <style lang="scss" scoped>
@@ -111,6 +159,9 @@ function resizeClick() {
   &:hover,
   &.active {
     background-color: rgba(0, 244, 0, 0.8);
+  }
+  &.dragActive {
+    cursor: grabbing;
   }
 
   z-index: 3;
@@ -133,11 +184,30 @@ function resizeClick() {
 .box-resize {
   z-index: 6;
   position: absolute;
-  cursor: nwse-resize;
+  font-size: 1rem;
+  color: white;
+}
+
+.resize-bottom-right {
   bottom: -14px;
   right: -10px;
   transform: rotate(90deg);
-  font-size: 1.3rem;
-  color: white;
+  cursor: se-resize;
+}
+
+.resize-bottom-left {
+  bottom: -14px;
+  left: -10px;
+  cursor: sw-resize;
+}
+
+.resize-top-left {
+  top: -14px;
+  left: -10px;
+  transform: rotate(90deg);
+  cursor: nw-resize;
+}
+.cursor-grab {
+  cursor: grab;
 }
 </style>
