@@ -90,11 +90,19 @@ const wrapper = ref(null);
 const drag = ref(false);
 
 const getCoursorLeft = (e, base, offset) => {
-  return ((e.pageX - offset) / base) * 100; // converting the distance to % for responsiveness
+  try {
+    return ((e.changedTouches[0].pageX - offset) / base) * 100; // converting the distance to % for responsiveness
+  } catch {
+    return ((e.pageX - offset) / base) * 100; // converting the distance to % for responsiveness
+  }
 };
 
 const getCoursorTop = (e, base, offset) => {
-  return ((e.pageY - offset) / base) * 100; // converting the distance to % for responsiveness
+  try {
+    return ((e.changedTouches[0].pageY - offset) / base) * 100; // converting the distance to % for responsiveness
+  } catch {
+    return ((e.pageY - offset) / base) * 100; // converting the distance to % for responsiveness
+  }
 };
 
 const resize = ref(false);
