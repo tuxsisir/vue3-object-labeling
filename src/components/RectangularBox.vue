@@ -3,7 +3,7 @@
     <div
       class="box"
       :style="{ top: bTop + '%', left: bLeft + '%', width: bWidth + '%', height: bHeight + '%' }"
-      :class="{ 'active': bActive, 'dragActive': bDrag }"
+      :class="{ 'active': bActive, 'dragActive': bDrag, 'resizeActive': bResize }"
       @mousedown="$emit('onSelect', bIndex)"
       @touchstart="$emit('onSelect', bIndex)"
     >
@@ -18,7 +18,8 @@
         >
           <q-icon
             name="add"
-            class="text-danger text-weight-bold cursor-grab"
+            class="text-danger text-weight-bold"
+            :class="{ 'cursor-grab': !bDrag, 'cursor-active': bDrag }"
           />
         </a>
       </div>
@@ -161,7 +162,11 @@ function enableDrag() {
     background-color: rgba(0, 244, 0, 0.8);
   }
   &.dragActive {
-    cursor: grabbing;
+    cursor: grabbing !important;
+    background-color: rgba(0, 244, 0, 0.2);
+  }
+  &.resizeActive {
+    background-color: rgba(0, 244, 0, 0.2);
   }
 
   z-index: 3;
@@ -209,5 +214,10 @@ function enableDrag() {
 }
 .cursor-grab {
   cursor: grab;
+}
+
+.cursor-active {
+  border: 1px solid black;
+  border-radius: 100%;
 }
 </style>

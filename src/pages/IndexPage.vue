@@ -157,15 +157,18 @@ function changeBox(e) {
     const offsetTop = wrapper.value.offsetTop;
     const newTop = getCoursorTop(e, wrapper.value.clientHeight, offsetTop);
     const newLeft = getCoursorLeft(e, wrapper.value.clientWidth, offsetLeft);
-    const dragTop = newTop - (boxes.value[activeBoxIndex.value].height / 2);
-    const dragLeft = newLeft - (boxes.value[activeBoxIndex.value].width / 2);
+    let dragTop = newTop - (boxes.value[activeBoxIndex.value].height / 2);
+    let dragLeft = newLeft - (boxes.value[activeBoxIndex.value].width / 2);
 
     const currentHeight = boxes.value[activeBoxIndex.value].height;
     const currentWidth = boxes.value[activeBoxIndex.value].width;
 
     // add limits on dragging so that it won't go beyond the desired div
+
+    dragTop = dragTop >= 0 ? dragTop : 2; // restrict the value of top to go beyond 0
+    dragLeft = dragLeft >= 0 ? dragLeft : 0; // restrict the value of top to go beyond 0
     boxes.value[activeBoxIndex.value].top = (currentHeight + dragTop) <= 100 ? dragTop : 100 - currentHeight;
-    boxes.value[activeBoxIndex.value].left = (currentWidth + dragLeft) <= 100 ? dragLeft: 100 - currentWidth; // this sets the cursor to midpoint
+    boxes.value[activeBoxIndex.value].left = (currentWidth + dragLeft) <= 100 ? dragLeft: 98 - currentWidth; // this sets the cursor to midpoint
 
   }
 
