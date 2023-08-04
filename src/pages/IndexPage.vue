@@ -128,12 +128,22 @@ const drawingBox = reactive({
   label: 'Untitled Box'
 });
 const boxes = ref([]);
+const initialDragTop = ref(null);
+const initialDragLeft = ref(null);
+const offsetX = ref(0);
+const offsetY = ref(0);
 
 function startDrawingBox(e) {
   e.preventDefault()
   // determine if resizing by activeBox value
   if (drag.value) {
     console.log('dragging start')
+    initialDragTop.value = boxes.value[activeBoxIndex.value].top;
+    initialDragLeft.value = boxes.value[activeBoxIndex.value].left;
+    const initialDragTopPx = (initialDragTop.value / 100) * wrapper.value.clientHeight; // convert to px
+    const initialDragLeftPx = (initialDragLeft.value / 100) * wrapper.value.clientWidth; // convert to px
+    offsetY.value = e.clientY - initialDragTopPx;
+    offsetX.value = e.clientX - initialDragLeftPx;
   } else if (resize.value) {
     console.log('resizing start')
   } else {
@@ -146,6 +156,15 @@ function startDrawingBox(e) {
     drawingBox.active = true
   }
 }
+
+const getCoursorTopDrag = (e, base, _) => {
+  return ((e.clientY - offsetY.value) / base) * 100;
+};
+
+const getCoursorLeftDrag = (e, base, _) => {
+  return ((e.clientX - offsetX.value) / base) * 100;
+};
+
 function changeBox(e) {
   // while dragging the existing box
   if (drag.value) {
@@ -155,10 +174,11 @@ function changeBox(e) {
     // only to move the box around
     const offsetLeft = wrapper.value.offsetLeft;
     const offsetTop = wrapper.value.offsetTop;
-    const newTop = getCoursorTop(e, wrapper.value.clientHeight, offsetTop);
-    const newLeft = getCoursorLeft(e, wrapper.value.clientWidth, offsetLeft);
-    let dragTop = newTop - (boxes.value[activeBoxIndex.value].height / 2);
-    let dragLeft = newLeft - (boxes.value[activeBoxIndex.value].width / 2);
+    const newTop = getCoursorTopDrag(e, wrapper.value.clientHeight, offsetTop);
+    const newLeft = getCoursorLeftDrag(e, wrapper.value.clientWidth, offsetLeft);
+
+    let dragTop = newTop;
+    let dragLeft = newLeft;
 
     const currentHeight = boxes.value[activeBoxIndex.value].height;
     const currentWidth = boxes.value[activeBoxIndex.value].width;

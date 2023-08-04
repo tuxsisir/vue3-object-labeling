@@ -8,18 +8,17 @@
       @touchstart="$emit('onSelect', bIndex)"
     >
       <div
-        class="flex flex-center item-center"
+        v-if="bActive"
+        @mousedown="enableDrag"
+        @touchstart="enableDrag"
+        class="flex flex-center item-center cursor-grab"
+        :class="{ 'cursor-grab': !bDrag, 'cursor-active': bDrag }"
         style="border: 1px solid black; height: 100%"
       >
-        <a
-          v-if="bActive"
-          @mousedown="enableDrag"
-          @touchstart="enableDrag"
-        >
+        <a>
           <q-icon
             name="add"
-            class="text-danger text-weight-bold"
-            :class="{ 'cursor-grab': !bDrag, 'cursor-active': bDrag }"
+            class="text-weight-bold"
           />
         </a>
       </div>
@@ -168,6 +167,7 @@ function enableDrag() {
   &.resizeActive {
     background-color: rgba(0, 244, 0, 0.2);
   }
+  transition: top 0.05s ease, left 0.05s ease;
 
   z-index: 3;
 }
